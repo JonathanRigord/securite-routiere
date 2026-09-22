@@ -28,10 +28,20 @@ function stopActiveGameTimer(){
   if (activeGame) activeGame.stopTimer();
 }
 
+/* Toute pop-up ouverte (confirmation de sortie, panneau animateur) doit être
+   refermée quand on change d'écran de force (ex. retour auto après
+   inactivité) : sinon elle reste affichée, plein écran, par-dessus l'écran
+   suivant pour le prochain visiteur. */
+function closeAllPopups(){
+  quitBackdrop.classList.remove('show');
+  panelBackdrop.classList.remove('show');
+}
+
 function goToAttract(){
   stopActiveGameTimer();
   resultAutoReturn.stop();
   idleWatcher.clear();
+  closeAllPopups();
   screenManager.go('attract');
 }
 
@@ -39,6 +49,7 @@ function goToMenu(){
   stopActiveGameTimer();
   resultAutoReturn.stop();
   idleWatcher.clear();
+  closeAllPopups();
   screenManager.go('menu');
 }
 
@@ -103,6 +114,7 @@ const gameFactory = new GameFactory({
 });
 
 function startGame(which){
+  resultAutoReturn.stop(); // au cas où on relance depuis l'écran de résultat (bouton "Rejouer")
   activeGame = gameFactory.get(which);
   activeGame.start();
   idleWatcher.arm();

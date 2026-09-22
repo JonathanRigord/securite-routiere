@@ -140,12 +140,7 @@ class DistanceGame extends Game {
 
     document.getElementById('distHint').style.visibility = 'hidden';
     const btn = document.getElementById('distNextBtn');
-    btn.textContent = (this.current === this.deck.length - 1) ? 'Voir le résultat' : 'Suivant';
-  }
-
-  onNext(){
-    if (!this.answered) this.validate();
-    else this.advance();
+    btn.textContent = this.nextButtonLabel();
   }
 
   static formatM(v){

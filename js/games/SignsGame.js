@@ -36,6 +36,7 @@ class SignsGame extends Game {
     Game.shuffle(SIGNS).forEach(sign => {
       const card = document.createElement('button');
       card.className = 'sign-card';
+      card.dataset.signId = sign.id;
       const img = document.createElement('img');
       img.src = sign.img;
       img.alt = sign.name;
@@ -55,7 +56,7 @@ class SignsGame extends Game {
     const next = document.getElementById('signNextBtn');
     next.disabled = true;
     next.classList.remove('ready');
-    next.textContent = (this.current === this.deck.length - 1) ? 'Voir le résultat' : 'Suivant';
+    next.textContent = this.nextButtonLabel();
   }
 
   _renderClues(){
@@ -125,9 +126,9 @@ class SignsGame extends Game {
         right: this.target.name,
         exp: this.target.hint
       });
-      document.querySelectorAll('.sign-card').forEach(c => c.style.pointerEvents = 'none');
       document.querySelectorAll('.sign-card').forEach(c => {
-        if (c.querySelector('img').alt === this.target.name){
+        c.style.pointerEvents = 'none';
+        if (c.dataset.signId === this.target.id){
           c.classList.remove('dim');
           c.classList.add('good');
         }

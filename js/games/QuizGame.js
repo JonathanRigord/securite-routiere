@@ -108,12 +108,7 @@ class QuizGame extends Game {
 
     const nextBtn = document.getElementById('nextBtn');
     nextBtn.disabled = false;
-    nextBtn.textContent = (this.current === this.deck.length - 1) ? 'Voir le résultat' : 'Suivant';
+    nextBtn.textContent = this.nextButtonLabel();
     document.getElementById('validateHint').style.visibility = 'hidden';
-  }
-
-  onNext(){
-    if (!this.answered) this.validate(false);
-    else this.advance();
   }
 }

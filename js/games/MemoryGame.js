@@ -10,11 +10,17 @@ class MemoryGame extends Game {
     this.found = 0;
     this.errors = 0;
     this.locked = false;
+    this._resolveTimeout = null; // setTimeout en attente dans flip() (résolution d'une paire)
 
     document.getElementById('memNextBtn').addEventListener('click', () => this.finish());
   }
 
   start(){
+    /* GameFactory ne crée qu'une seule instance de MemoryGame pour toute la
+       session (voir GameFactory.js) : sans ça, un setTimeout en attente d'une
+       manche précédente (Quitter puis Rejouer rapide) s'exécuterait pendant
+       la nouvelle manche et corromprait flipped/locked/found en plein jeu. */
+    clearTimeout(this._resolveTimeout);
     const pairCount = Math.min(this.settings.count, EQUIPMENT_POOL.length);
     this.pairs = Game.shuffle(EQUIPMENT_POOL).slice(0, pairCount);
     this.found = 0;
@@ -86,7 +92,7 @@ class MemoryGame extends Game {
     const [a, b] = this.flipped;
 
     if (a.item.name === b.item.name){
-      setTimeout(() => {
+      this._resolveTimeout = setTimeout(() => {
         a.card.classList.add('matched');
         b.card.classList.add('matched');
         this.found++;
@@ -99,13 +105,17 @@ class MemoryGame extends Game {
     } else {
       this.errors++;
       document.getElementById('memErrors').textContent = this.errors;
-      setTimeout(() => {
+      this._resolveTimeout = setTimeout(() => {
         a.card.classList.remove('flipped');
         b.card.classList.remove('flipped');
         this.flipped = [];
         this.locked = false;
       }, 1100);
     }
+  }
+
+  stopTimer(){
+    clearTimeout(this._resolveTimeout);
   }
 
   _showFact(item){

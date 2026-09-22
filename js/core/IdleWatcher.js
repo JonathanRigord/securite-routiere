@@ -42,8 +42,11 @@ class IdleWatcher {
     if (this.onWarn) this.onWarn();
     this._graceTimer.start(this.graceSeconds, {
       onTick: (left) => { if (this.onTick) this.onTick(left); },
+      /* Ne pas repasser _warning à false ici : c'est _dismissWarning() (appelée
+         en aval par onExpire, via clear()) qui doit le faire, sans quoi son
+         garde `if (this._warning)` échoue et onDismissWarn n'est jamais
+         appelé — la pop-up d'avertissement resterait affichée pour toujours. */
       onExpire: () => {
-        this._warning = false;
         if (this.onExpire) this.onExpire();
       }
     });

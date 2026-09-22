@@ -47,6 +47,14 @@ class Game {
     else this.finish();
   }
 
+  /* Bouton d'action à deux temps (sélectionner puis valider), partagé par
+     Quiz et Distance : un premier appui valide la manche, le suivant avance.
+     Signs n'a pas cette étape de validation séparée et n'utilise pas ce hook. */
+  onNext(){
+    if (!this.answered) this.validate();
+    else this.advance();
+  }
+
   finish(){
     this.stopTimer();
     if (this.onFinish) this.onFinish(this);
@@ -58,6 +66,12 @@ class Game {
 
   renderRound(){
     throw new Error('renderRound() doit être implémentée par ' + this.constructor.name);
+  }
+
+  /* Libellé du bouton d'action, partagé par Quiz, Distance et Signs (dernière
+     manche → "Voir le résultat", sinon → "Suivant"). */
+  nextButtonLabel(){
+    return (this.current === this.deck.length - 1) ? 'Voir le résultat' : 'Suivant';
   }
 
   /* Petits points de progression partagés par Quiz, Distance et Signs. */
