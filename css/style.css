@@ -306,6 +306,11 @@
     background:var(--asphalt-2); border:3px solid #2a3157; border-radius:16px;
     padding:1.2vmin; aspect-ratio:1/1; touch-action:manipulation;
     transition:transform .15s ease, border-color .15s ease;
+    /* Sans ça, Safari/WebKit laisse la taille intrinsèque des images de
+       panneaux (960x960) empêcher les colonnes 1fr de rétrécir, et la
+       grille déborde de #signs (coupée par son overflow:hidden). Chrome
+       n'a pas ce problème, d'où le bug invisible en développement. */
+    min-width:0;
   }
   .sign-card:active{ transform:scale(0.96); }
   .sign-card img{ width:100%; height:100%; display:block; object-fit:contain; -webkit-user-drag:none; user-select:none; }
