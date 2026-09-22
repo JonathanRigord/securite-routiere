@@ -77,7 +77,7 @@
 
   /* ---------- Memory game ---------- */
   #memory{
-    width:100%; max-width:1150px;
+    width:100%; max-width:1150px; margin-inline:auto;
     justify-content:safe center; overflow:hidden;
     padding:calc(16px + 5.5vmin) 2.5vmin 2vmin;
   }
@@ -139,7 +139,7 @@
 
   /* ---------- Quiz ---------- */
   #quiz, #distance{
-    width:100%; max-width:1150px;
+    width:100%; max-width:1150px; margin-inline:auto;
     justify-content:safe center;
     overflow:hidden;
     padding:calc(16px + 6vmin) 2.5vmin 2vmin;
@@ -284,7 +284,7 @@
 
   /* ---------- Sign guessing game ---------- */
   #signs{
-    width:100%; max-width:1150px;
+    width:100%; max-width:1150px; margin-inline:auto;
     justify-content:safe center; overflow:hidden;
     padding:calc(16px + 5.5vmin) 2.5vmin 2vmin;
   }
