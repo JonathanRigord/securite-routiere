@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<title>Sécurité Routière — Stand ToutCan</title>
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="hotcorner"></div>
+
+<!-- ATTRACT -->
+<section id="attract" class="screen active">
+  <div class="car-wrap" id="attractCar"></div>
+  <h1 class="display">SÉCURITÉ ROUTIÈRE</h1>
+  <div class="road-line"></div>
+  <p class="sub" id="attractTease">Un jeu à faire à plusieurs : mettez-vous d'accord avant de valider chaque réponse.</p>
+  <p class="tag">ToutCan, partenaire ECF Prisme</p>
+  <button class="cta" id="startBtn">Touchez pour jouer</button>
+</section>
+
+<!-- MENU -->
+<section id="menu" class="screen">
+  <div class="top-bar"><button class="quit-btn" id="menuBackBtn">Retour</button></div>
+  <h1 class="menu-title">Choisissez votre défi</h1>
+  <p class="menu-sub">Deux façons de tester vos réflexes au volant.</p>
+  <div class="game-cards">
+    <button class="game-card" id="gameQuizBtn">
+      <span class="icon" data-ico="feu"></span>
+      <h2>Le bon réflexe</h2>
+      <p>Des situations réelles au volant. À vous de dire ce que le conducteur aurait dû faire.</p>
+    </button>
+    <button class="game-card" id="gameDistBtn">
+      <span class="icon" data-ico="regle"></span>
+      <h2>Où va-t-elle s'arrêter ?</h2>
+      <p>Placez le point d'arrêt de la voiture sur la route. Le résultat va vous surprendre.</p>
+    </button>
+    <button class="game-card" id="gameMemBtn">
+      <span class="icon" data-ico="casque"></span>
+      <h2>L'équipement du motard</h2>
+      <p>Retrouvez les paires d'équipements. Saurez-vous dire lesquels sont obligatoires ?</p>
+    </button>
+    <button class="game-card" id="gameSignBtn">
+      <span class="icon" data-ico="panneau"></span>
+      <h2>Qui est-ce ?</h2>
+      <p>Un panneau mystère, des indices un par un. Trouvez-le en un minimum de tentatives.</p>
+    </button>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz" class="screen">
+  <div class="top-bar"><button class="quit-btn" id="quitQuizBtn">Quitter</button></div>
+  <div class="rule-bar"><b>La règle</b><span>Choisissez une réponse ensemble, puis validez. L'explication s'affiche après.</span></div>
+  <div class="timer-badge" id="timerText">45</div>
+  <div class="q-counter" id="qCounter"></div>
+  <div class="progress" id="progress"></div>
+  <div class="question" id="questionText"></div>
+  <div class="answers" id="answers"></div>
+  <div class="explanation" id="explanation"></div>
+  <div class="stat-box" id="statBox"></div>
+  <div class="actions">
+    <span class="hint" id="validateHint">Sélectionnez une réponse</span>
+    <button class="next-btn" id="nextBtn" disabled>Valider</button>
+  </div>
+</section>
+
+<!-- DISTANCE GAME -->
+<section id="distance" class="screen">
+  <div class="top-bar"><button class="quit-btn" id="quitDistBtn">Quitter</button></div>
+  <div class="rule-bar"><b>La règle</b><span>Placez le repère là où la voiture s'arrête selon vous, puis validez.</span></div>
+  <div class="q-counter" id="dCounter"></div>
+  <div class="progress" id="dProgress"></div>
+  <div class="dist-scene">
+    <p class="dist-context" id="distContext"></p>
+    <p class="dist-sub">Faites glisser le repère sur la route, puis affinez au mètre près avec − et +.</p>
+    <div class="road-strip" id="roadStrip">
+      <span class="car-icon" data-ico="voiture"></span>
+      <div class="marker" id="guessMarker"><span class="flag" data-ico="depart"></span><span class="grip" id="guessGrip">40 m</span></div>
+      <div class="marker truth" id="truthMarker" style="display:none"><span class="flag" data-ico="arrivee"></span><span class="grip" id="truthGrip"></span></div>
+    </div>
+    <div class="scale-row"><span>0 m</span><span id="scaleMax"></span></div>
+    <div class="adjust-row">
+      <button class="adj-btn" id="minusBtn" aria-label="Reculer d'un mètre">−</button>
+      <span class="guess-value" id="guessValue">40 m</span>
+      <button class="adj-btn" id="plusBtn" aria-label="Avancer d'un mètre">+</button>
+    </div>
+    <p class="verdict" id="distVerdict"></p>
+  </div>
+  <div class="explanation" id="distExplanation"></div>
+  <div class="stat-box" id="distStat"></div>
+  <div class="actions">
+    <span class="hint" id="distHint">Placez votre estimation, puis validez</span>
+    <button class="next-btn" id="distNextBtn">Valider</button>
+  </div>
+</section>
+
+<!-- MEMORY GAME -->
+<section id="memory" class="screen">
+  <div class="top-bar"><button class="quit-btn" id="quitMemBtn">Quitter</button></div>
+  <div class="rule-bar"><b>La règle</b><span>Retournez deux cartes à la fois pour reformer les paires d'équipements.</span></div>
+  <div class="mem-stats">
+    <span>Paires : <b id="memFound">0</b> / <b id="memTotal">8</b></span>
+    <span>Essais ratés : <b id="memErrors">0</b></span>
+  </div>
+  <div class="mem-grid" id="memGrid"></div>
+  <div class="mem-reveal" id="memReveal"><span class="placeholder">Touchez deux cartes pour les retourner.</span></div>
+  <div class="actions">
+    <span class="hint" id="memHint">Trouvez toutes les paires</span>
+    <button class="next-btn" id="memNextBtn" disabled>Voir le résultat</button>
+  </div>
+</section>
+
+<!-- SIGN GUESSING GAME -->
+<section id="signs" class="screen">
+  <div class="top-bar"><button class="quit-btn" id="quitSignBtn">Quitter</button></div>
+  <div class="rule-bar"><b>La règle</b><span>Un panneau mystère. Touchez celui que vous pensez être le bon, ou demandez un indice.</span></div>
+  <div class="q-counter" id="sCounter"></div>
+  <div class="progress" id="sProgress"></div>
+  <div class="clue-box" id="clueBox"></div>
+  <div class="sign-grid" id="signGrid"></div>
+  <div class="actions">
+    <span class="hint" id="signHint">Touchez le panneau qui correspond</span>
+    <button class="secondary-btn" id="clueBtn">Indice suivant</button>
+    <button class="next-btn" id="signNextBtn" disabled>Suivant</button>
+  </div>
+</section>
+
+<!-- RESULT -->
+<section id="result" class="screen">
+  <p class="score" id="scoreText"></p>
+  <p class="msg" id="resultMsg"></p>
+  <div class="takeaway" id="takeaway"></div>
+  <div class="recap" id="recap"></div>
+  <div class="result-actions">
+    <button class="cta" id="replayBtn">Rejouer</button>
+    <button class="secondary-btn" id="otherGameBtn">Essayer l'autre jeu</button>
+    <button class="link-btn" id="homeBtn">Retour à l'accueil</button>
+  </div>
+</section>
+
+<!-- POP-UP CONFIRMATION SORTIE -->
+<div class="panel-backdrop" id="quitBackdrop">
+  <div class="confirm-box">
+    <h2>Quitter la partie ?</h2>
+    <p>Votre progression sera perdue et l'écran reviendra à l'accueil.</p>
+    <div class="confirm-actions">
+      <button class="btn-stay" id="stayBtn">Continuer à jouer</button>
+      <button class="btn-leave" id="leaveBtn">Quitter</button>
+    </div>
+  </div>
+</div>
+
+<!-- AVERTISSEMENT INACTIVITÉ -->
+<div class="panel-backdrop" id="idleBackdrop">
+  <div class="idle-box">
+    <h2>Toujours là ?</h2>
+    <p>Sans réponse, la borne reviendra à l'accueil pour le prochain visiteur.</p>
+    <span class="idle-count" id="idleCount">15</span>
+    <button class="btn-stay" id="idleStayBtn">Nous sommes toujours là</button>
+  </div>
+</div>
+
+<!-- ANIMATOR PANEL -->
+<div class="panel-backdrop" id="panelBackdrop">
+  <div class="panel">
+    <h2>Réglages animateur</h2>
+    <p class="panel-sub">Visible uniquement par vous. Appui long sur le coin bas-gauche, ou touche A.</p>
+    <div class="panel-row">
+      <label>Nombre de questions par partie</label>
+      <div class="opt-group" id="optCount"></div>
+    </div>
+    <div class="panel-row">
+      <label>Minuteur par question</label>
+      <div class="opt-group" id="optTimer"></div>
+    </div>
+    <div class="panel-row">
+      <label>Bilan de la borne</label>
+      <div class="stats-grid">
+        <div class="stat-cell"><b id="statTotal">0</b><span>parties</span></div>
+        <div class="stat-cell"><b id="statQuiz">0</b><span>réflexes</span></div>
+        <div class="stat-cell"><b id="statDist">0</b><span>distances</span></div>
+        <div class="stat-cell"><b id="statMem">0</b><span>équipement</span></div>
+        <div class="stat-cell"><b id="statSign">0</b><span>panneaux</span></div>
+      </div>
+      <p class="stats-note">Depuis le <span id="statSince">—</span>. Comptage local, aucune donnée personnelle.</p>
+      <button class="opt" id="resetStatsBtn">Remettre les compteurs à zéro</button>
+    </div>
+    <button class="panel-close" id="panelCloseBtn">Fermer</button>
+    <p class="panel-hint">Les changements s'appliquent à la prochaine partie.</p>
+  </div>
+</div>
+
+<!-- Scripts classiques (pas de modules ES) : l'app doit fonctionner en file:// sur la borne.
+     L'ordre compte : les constantes/classes déclarées dans un script sont visibles des
+     scripts suivants (portée globale partagée). -->
+<script src="js/data/questions.js"></script>
+<script src="js/data/distances.js"></script>
+<script src="js/data/equipements.js"></script>
+<script src="js/data/panneaux.js"></script>
+<script src="js/icons.js"></script>
+<script src="js/core/StatsStore.js"></script>
+<script src="js/core/CountdownTimer.js"></script>
+<script src="js/core/IdleWatcher.js"></script>
+<script src="js/core/ScreenManager.js"></script>
+<script src="js/core/KioskGuard.js"></script>
+<script src="js/games/Game.js"></script>
+<script src="js/games/QuizGame.js"></script>
+<script src="js/games/DistanceGame.js"></script>
+<script src="js/games/MemoryGame.js"></script>
+<script src="js/games/SignsGame.js"></script>
+<script src="js/games/GameFactory.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
