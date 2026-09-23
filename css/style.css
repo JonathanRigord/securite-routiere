@@ -336,10 +336,19 @@
   }
   .recap-item .rq{ font-size:1.75vmin; font-weight:600; margin:0 0 3px; }
   .recap-item .ra{ font-size:1.6vmin; color:var(--chrome); margin:0; line-height:1.35; }
+  /* Placée entre le takeaway et le récap (plutôt qu'en toute fin d'écran) :
+     comme le récap peut être long et défile, ça garde les boutons d'action
+     atteignables tout de suite, sans avoir à faire défiler pour les trouver. */
   .result-actions{
     display:flex; gap:18px; align-items:center; flex-wrap:wrap;
-    justify-content:center; padding-bottom:4vh;
+    justify-content:center;
+    width:100%; margin:1vh 0 2vh;
   }
+  /* .cta porte un margin-top:32px pour son usage sur l'écran d'accueil (le
+     bouton "Touchez pour jouer", seul sous le road-line) : sans annulation,
+     ce margin s'ajoute aussi ici et empêche align-items:center de vraiment
+     centrer "Rejouer" par rapport aux deux autres boutons. */
+  .result-actions .cta{ margin-top:0; }
   .secondary-btn{
     background:transparent; border:3px solid var(--chrome); color:var(--paper);
     font-family:'Work Sans',sans-serif; font-weight:600; font-size:2vmin;
