@@ -54,7 +54,6 @@
   }
   .car-wrap{ animation:bounce 1.6s ease-in-out infinite; }
   @keyframes bounce{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-8px);} }
-  .tag{ font-size:1.8vmin; color:var(--chrome); margin-top:10px; text-align:center; }
 
   /* ---------- Menu ---------- */
   .menu-title{ font-size:4.6vmin; font-weight:700; margin:0 0 8px; text-align:center; }
